@@ -25,6 +25,7 @@ targets:
       gql_build|schema_builder:
         enabled: true
         options:
+          global_enum_fallbacks: true
           type_overrides:
             Date:
               name: DateTime
@@ -35,6 +36,7 @@ targets:
         enabled: true
         options:
           schema: end_to_end_test|lib/graphql/schema.graphql
+          global_enum_fallbacks: true
           type_overrides:
             Date:
               name: DateTime

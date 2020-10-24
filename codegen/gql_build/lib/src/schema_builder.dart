@@ -11,8 +11,9 @@ import "package:gql_code_builder/schema.dart";
 
 class SchemaBuilder implements Builder {
   final Map<String, Reference> typeOverrides;
+  final bool globalEnumFallbacks;
 
-  SchemaBuilder(this.typeOverrides);
+  SchemaBuilder(this.typeOverrides, this.globalEnumFallbacks);
 
   @override
   Map<String, List<String>> get buildExtensions => {
@@ -32,6 +33,7 @@ class SchemaBuilder implements Builder {
       doc,
       basename(generatedPartUrl),
       typeOverrides,
+      globalEnumFallbacks,
     );
 
     return writeDocument(

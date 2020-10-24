@@ -6,10 +6,12 @@ Library buildSchemaLibrary(
   SourceNode schemaSource,
   String partUrl,
   Map<String, Reference> typeOverrides,
+  bool globalEnumFallbacks,
 ) {
   final lib = buildSchema(
     schemaSource,
     typeOverrides,
+      globalEnumFallbacks
   ) as Library;
 
   return lib.rebuild(

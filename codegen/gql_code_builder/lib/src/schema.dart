@@ -9,21 +9,25 @@ import "package:gql_code_builder/source.dart";
 Spec buildSchema(
   SourceNode schemaSource,
   Map<String, Reference> typeOverrides,
+  bool globalEnumFallbacks,
 ) =>
     schemaSource.document.accept(
       _SchemaBuilderVisitor(
         schemaSource,
         typeOverrides,
+        globalEnumFallbacks
       ),
     );
 
 class _SchemaBuilderVisitor extends SimpleVisitor<Spec> {
   final SourceNode schemaSource;
   final Map<String, Reference> typeOverrides;
+  final bool globalEnumFallbacks;
 
   _SchemaBuilderVisitor(
     this.schemaSource,
     this.typeOverrides,
+    this.globalEnumFallbacks,
   );
 
   Spec _acceptOne(
@@ -70,5 +74,5 @@ class _SchemaBuilderVisitor extends SimpleVisitor<Spec> {
   Spec visitEnumTypeDefinitionNode(
     EnumTypeDefinitionNode node,
   ) =>
-      buildEnumClass(node);
+      buildEnumClass(node, globalEnumFallbacks);
 }

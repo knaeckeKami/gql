@@ -5,16 +5,10 @@ import "package:recase/recase.dart";
 
 import "package:gql_code_builder/src/common.dart";
 
-List<Class> buildEnumClasses(
-  DocumentNode doc,
-) =>
-    doc.definitions
-        .whereType<EnumTypeDefinitionNode>()
-        .map(buildEnumClass)
-        .toList();
 
 Class buildEnumClass(
   EnumTypeDefinitionNode node,
+  bool withFallback,
 ) =>
     Class(
       (b) => b
@@ -22,7 +16,12 @@ Class buildEnumClass(
         ..extend = refer("EnumClass", "package:built_value/built_value.dart")
         ..constructors = _buildConstructors()
         ..fields = _buildFields(
-          node.values,
+          [
+            ...node.values,
+            if (withFallback)
+              //TODO handle name clashes
+              EnumValueDefinitionNode(name: NameNode(value:"gUnknownEnumValue"),fallback:true)
+          ],
           builtClassName(node.name.value),
         )
         ..methods = _buildMethods(builtClassName(node.name.value)),
@@ -108,10 +107,7 @@ ListBuilder<Field> _buildFields(
 ) =>
     ListBuilder<Field>(
       nodes.map<Field>(
-        (node) => _buildConst(
-          node,
-          enumName,
-        ),
+        (node) => _buildConst(node, enumName),
       ),
     );
 
@@ -126,15 +122,16 @@ String _escapeConstName(String raw) =>
         : identifier(raw);
 
 Field _buildConst(
-  EnumValueDefinitionNode node,
-  String enumName,
-) =>
+        EnumValueDefinitionNode node, String enumName) =>
     Field(
       (b) => b
         ..annotations = ListBuilder(<Expression>[
-          if (_escapeConstName(node.name.value) != node.name.value)
+          if (_escapeConstName(node.name.value) != node.name.value || node.fallback)
             refer("BuiltValueEnumConst", "package:built_value/built_value.dart")
-                .call([], {"wireName": literalString(node.name.value)}),
+                .call([], {
+              "wireName": literalString(node.name.value),
+              if (node.fallback) "fallback": literalBool(true)
+            }),
         ])
         ..static = true
         ..modifier = FieldModifier.constant

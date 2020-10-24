@@ -52,6 +52,7 @@ Builder schemaBuilder(
 ) =>
     SchemaBuilder(
       typeOverrideMap(options?.config["type_overrides"]),
+      options?.config["global_enum_fallbacks"] as bool,
     );
 
 /// Builds an aggregate Serlializers object for [built_value]s
