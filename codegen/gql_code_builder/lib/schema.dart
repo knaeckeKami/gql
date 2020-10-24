@@ -3,16 +3,14 @@ import "package:gql_code_builder/src/schema.dart";
 import "package:gql_code_builder/source.dart";
 
 Library buildSchemaLibrary(
-  SourceNode schemaSource,
-  String partUrl,
-  Map<String, Reference> typeOverrides,
-  bool globalEnumFallbacks,
-) {
+    SourceNode schemaSource,
+    String partUrl,
+    Map<String, Reference> typeOverrides,
+    bool globalEnumFallbacks,
+    Map<String, String> enumFallbacks) {
   final lib = buildSchema(
-    schemaSource,
-    typeOverrides,
-      globalEnumFallbacks
-  ) as Library;
+          schemaSource, typeOverrides, globalEnumFallbacks, enumFallbacks)
+      as Library;
 
   return lib.rebuild(
     (b) => b

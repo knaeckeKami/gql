@@ -18,6 +18,22 @@ Map<String, Reference> typeOverrideMap(dynamic typeOverrideConfig) {
   return {};
 }
 
+
+Map<String, String> enumFallbackMap(final dynamic enumFallbacks) {
+  print("hello");
+  if (enumFallbacks is YamlMap) {
+    return Map.fromEntries(
+      enumFallbacks.entries.map(
+            (entry) => MapEntry(
+          entry.key as String,
+          entry.value as String,
+        ),
+      ),
+    );
+  }
+  return {};
+}
+
 Set<Reference> customSerializers(dynamic customSerializersConfig) {
   if (customSerializersConfig is YamlList) {
     return customSerializersConfig

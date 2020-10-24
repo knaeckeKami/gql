@@ -5,11 +5,8 @@ import "package:recase/recase.dart";
 
 import "package:gql_code_builder/src/common.dart";
 
-
-Class buildEnumClass(
-  EnumTypeDefinitionNode node,
-  bool withFallback,
-) =>
+Class buildEnumClass(EnumTypeDefinitionNode node, bool globalFallback,
+        Map<String, String> enumFallbacks) =>
     Class(
       (b) => b
         ..name = builtClassName(node.name.value)
@@ -17,10 +14,21 @@ Class buildEnumClass(
         ..constructors = _buildConstructors()
         ..fields = _buildFields(
           [
-            ...node.values,
-            if (withFallback)
+            ...node.values.map((enumValue) {
+              if (enumFallbacks[node.name.value] == enumValue.name.value) {
+                return EnumValueDefinitionNode(
+                    name: enumValue.name,
+                    fallback: true,
+                    span: enumValue.span,
+                    directives: enumValue.directives,
+                    description: enumValue.description);
+              }
+              return enumValue;
+            }),
+            if (globalFallback && !enumFallbacks.containsKey(node.name.value))
               //TODO handle name clashes
-              EnumValueDefinitionNode(name: NameNode(value:"gUnknownEnumValue"),fallback:true)
+              EnumValueDefinitionNode(
+                  name: NameNode(value: "gUnknownEnumValue"), fallback: true)
           ],
           builtClassName(node.name.value),
         )
@@ -121,12 +129,11 @@ String _escapeConstName(String raw) =>
         ? identifier("G$raw")
         : identifier(raw);
 
-Field _buildConst(
-        EnumValueDefinitionNode node, String enumName) =>
-    Field(
+Field _buildConst(EnumValueDefinitionNode node, String enumName) => Field(
       (b) => b
         ..annotations = ListBuilder(<Expression>[
-          if (_escapeConstName(node.name.value) != node.name.value || node.fallback)
+          if (_escapeConstName(node.name.value) != node.name.value ||
+              node.fallback)
             refer("BuiltValueEnumConst", "package:built_value/built_value.dart")
                 .call([], {
               "wireName": literalString(node.name.value),

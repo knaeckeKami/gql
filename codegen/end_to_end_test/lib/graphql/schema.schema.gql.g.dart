@@ -37,8 +37,6 @@ final BuiltSet<GEpisode> _$gEpisodeValues =
 
 const GLengthUnit _$gLengthUnitMETER = const GLengthUnit._('METER');
 const GLengthUnit _$gLengthUnitFOOT = const GLengthUnit._('FOOT');
-const GLengthUnit _$gLengthUnitgUnknownEnumValue =
-    const GLengthUnit._('gUnknownEnumValue');
 
 GLengthUnit _$gLengthUnitValueOf(String name) {
   switch (name) {
@@ -46,10 +44,8 @@ GLengthUnit _$gLengthUnitValueOf(String name) {
       return _$gLengthUnitMETER;
     case 'FOOT':
       return _$gLengthUnitFOOT;
-    case 'gUnknownEnumValue':
-      return _$gLengthUnitgUnknownEnumValue;
     default:
-      return _$gLengthUnitgUnknownEnumValue;
+      return _$gLengthUnitMETER;
   }
 }
 
@@ -57,7 +53,6 @@ final BuiltSet<GLengthUnit> _$gLengthUnitValues =
     new BuiltSet<GLengthUnit>(const <GLengthUnit>[
   _$gLengthUnitMETER,
   _$gLengthUnitFOOT,
-  _$gLengthUnitgUnknownEnumValue,
 ]);
 
 Serializer<GEpisode> _$gEpisodeSerializer = new _$GEpisodeSerializer();
@@ -92,10 +87,10 @@ class _$GEpisodeSerializer implements PrimitiveSerializer<GEpisode> {
 
 class _$GLengthUnitSerializer implements PrimitiveSerializer<GLengthUnit> {
   static const Map<String, Object> _toWire = const <String, Object>{
-    'gUnknownEnumValue': 'gUnknownEnumValue',
+    'METER': 'METER',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
-    'gUnknownEnumValue': 'gUnknownEnumValue',
+    'METER': 'METER',
   };
 
   @override

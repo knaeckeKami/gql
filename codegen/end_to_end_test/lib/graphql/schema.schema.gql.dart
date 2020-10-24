@@ -29,12 +29,10 @@ class GEpisode extends EnumClass {
 class GLengthUnit extends EnumClass {
   const GLengthUnit._(String name) : super(name);
 
+  @BuiltValueEnumConst(wireName: 'METER', fallback: true)
   static const GLengthUnit METER = _$gLengthUnitMETER;
 
   static const GLengthUnit FOOT = _$gLengthUnitFOOT;
-
-  @BuiltValueEnumConst(wireName: 'gUnknownEnumValue', fallback: true)
-  static const GLengthUnit gUnknownEnumValue = _$gLengthUnitgUnknownEnumValue;
 
   static Serializer<GLengthUnit> get serializer => _$gLengthUnitSerializer;
   static BuiltSet<GLengthUnit> get values => _$gLengthUnitValues;

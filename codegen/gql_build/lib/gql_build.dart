@@ -49,11 +49,14 @@ Builder varBuilder(
 /// Builds GraphQL schema types
 Builder schemaBuilder(
   BuilderOptions options,
-) =>
-    SchemaBuilder(
+) {
+  print("got enum map ${enumFallbackMap.runtimeType} $enumFallbackMap");
+  return SchemaBuilder(
       typeOverrideMap(options?.config["type_overrides"]),
       options?.config["global_enum_fallbacks"] as bool,
-    );
+      enumFallbackMap(options?.config["enum_fallbacks"])
+  );
+}
 
 /// Builds an aggregate Serlializers object for [built_value]s
 ///
