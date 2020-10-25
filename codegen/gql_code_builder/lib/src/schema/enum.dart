@@ -137,7 +137,10 @@ ListBuilder<Field> _buildFields(
 ) =>
     ListBuilder<Field>(
       nodes.map<Field>(
-        (node) => _buildConst(node, enumName),
+        (node) => _buildConst(
+          node,
+          enumName,
+        ),
       ),
     );
 

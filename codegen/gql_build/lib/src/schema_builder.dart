@@ -13,7 +13,10 @@ class SchemaBuilder implements Builder {
   final Map<String, Reference> typeOverrides;
   final EnumFallbackConfig enumFallbackConfig;
 
-  SchemaBuilder(this.typeOverrides, this.enumFallbackConfig);
+  SchemaBuilder(
+    this.typeOverrides,
+    this.enumFallbackConfig,
+  );
 
   @override
   Map<String, List<String>> get buildExtensions => {
@@ -30,7 +33,11 @@ class SchemaBuilder implements Builder {
         .path;
 
     final library = buildSchemaLibrary(
-        doc, basename(generatedPartUrl), typeOverrides, enumFallbackConfig);
+      doc,
+      basename(generatedPartUrl),
+      typeOverrides,
+      enumFallbackConfig,
+    );
 
     return writeDocument(
       library,
