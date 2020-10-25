@@ -25,7 +25,6 @@ targets:
       gql_build|schema_builder:
         enabled: true
         options:
-          global_enum_fallbacks: true
           enum_fallbacks:
             LengthUnit: METER
           type_overrides:
