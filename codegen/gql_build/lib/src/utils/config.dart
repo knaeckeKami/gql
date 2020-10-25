@@ -42,7 +42,8 @@ EnumFallbackConfig enumFallbackConfig(Map<String, dynamic> config) {
   }
 
   return EnumFallbackConfig(
-    globalEnumFallbackName: "gUnknownEnumValue",
+    globalEnumFallbackName:
+        (config["global_enum_fallback_name"] ?? "gUnknownEnumValue") as String,
     generateFallbackValuesGlobally: config["global_enum_fallbacks"] == true,
     fallbackValueMap: enumFallbackMap(config["enum_fallbacks"]),
   );
