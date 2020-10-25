@@ -154,7 +154,11 @@ String _escapeConstName(String raw) =>
         ? identifier("G$raw")
         : identifier(raw);
 
-Field _buildConst(EnumValueDefinitionNode node, String enumName) => Field(
+Field _buildConst(
+  EnumValueDefinitionNode node,
+  String enumName,
+) =>
+    Field(
       (b) => b
         ..annotations = ListBuilder(<Expression>[
           if (_escapeConstName(node.name.value) != node.name.value ||
