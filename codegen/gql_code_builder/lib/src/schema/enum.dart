@@ -7,7 +7,9 @@ import "package:recase/recase.dart";
 import "package:gql_code_builder/src/common.dart";
 
 Class buildEnumClass(
-        EnumTypeDefinitionNode node, EnumFallbackConfig enumFallbackConfig) =>
+  EnumTypeDefinitionNode node,
+  EnumFallbackConfig enumFallbackConfig,
+) =>
     Class(
       (b) => b
         ..name = builtClassName(node.name.value)

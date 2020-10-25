@@ -7,10 +7,17 @@ import "package:gql_code_builder/src/schema/scalar.dart";
 import "package:gql_code_builder/source.dart";
 
 /// Build input types, enums and scalars from schema
-Spec buildSchema(SourceNode schemaSource, Map<String, Reference> typeOverrides,
-        EnumFallbackConfig enumFallbackConfig) =>
+Spec buildSchema(
+  SourceNode schemaSource,
+  Map<String, Reference> typeOverrides,
+  EnumFallbackConfig enumFallbackConfig,
+) =>
     schemaSource.document.accept(
-      _SchemaBuilderVisitor(schemaSource, typeOverrides, enumFallbackConfig),
+      _SchemaBuilderVisitor(
+        schemaSource,
+        typeOverrides,
+        enumFallbackConfig,
+      ),
     );
 
 class _SchemaBuilderVisitor extends SimpleVisitor<Spec> {
