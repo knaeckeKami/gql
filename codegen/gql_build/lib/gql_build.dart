@@ -50,7 +50,6 @@ Builder varBuilder(
 Builder schemaBuilder(
   BuilderOptions options,
 ) {
-  print("got enum map ${enumFallbackMap.runtimeType} $enumFallbackMap");
   return SchemaBuilder(typeOverrideMap(options?.config["type_overrides"]),
       enumFallbackConfig(options?.config));
 }
