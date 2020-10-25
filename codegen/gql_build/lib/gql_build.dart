@@ -50,8 +50,10 @@ Builder varBuilder(
 Builder schemaBuilder(
   BuilderOptions options,
 ) =>
-    SchemaBuilder(typeOverrideMap(options?.config["type_overrides"]),
-        enumFallbackConfig(options?.config));
+    SchemaBuilder(
+      typeOverrideMap(options?.config["type_overrides"]),
+      enumFallbackConfig(options?.config),
+    );
 
 /// Builds an aggregate Serlializers object for [built_value]s
 ///
