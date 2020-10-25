@@ -1,12 +1,13 @@
 import "package:built_collection/built_collection.dart";
 import "package:code_builder/code_builder.dart";
 import "package:gql/ast.dart";
+import "package:gql_code_builder/schema.dart";
 import "package:recase/recase.dart";
 
 import "package:gql_code_builder/src/common.dart";
 
-Class buildEnumClass(EnumTypeDefinitionNode node, bool globalFallback,
-        Map<String, String> enumFallbacks) =>
+Class buildEnumClass(
+        EnumTypeDefinitionNode node, EnumFallbackConfig enumFallbackConfig) =>
     Class(
       (b) => b
         ..name = builtClassName(node.name.value)
@@ -15,7 +16,8 @@ Class buildEnumClass(EnumTypeDefinitionNode node, bool globalFallback,
         ..fields = _buildFields(
           [
             ...node.values.map((enumValue) {
-              if (enumFallbacks[node.name.value] == enumValue.name.value) {
+              if (enumFallbackConfig.fallbackValueMap[node.name.value] ==
+                  enumValue.name.value) {
                 return EnumValueDefinitionNode(
                     name: enumValue.name,
                     fallback: true,
@@ -25,15 +27,33 @@ Class buildEnumClass(EnumTypeDefinitionNode node, bool globalFallback,
               }
               return enumValue;
             }),
-            if (globalFallback && !enumFallbacks.containsKey(node.name.value))
-              //TODO handle name clashes
+            if (enumFallbackConfig.generateFallbackValuesGlobally &&
+                !enumFallbackConfig.fallbackValueMap
+                    .containsKey(node.name.value))
               EnumValueDefinitionNode(
-                  name: NameNode(value: "gUnknownEnumValue"), fallback: true)
+                  name: NameNode(
+                      value: _ensureNoNameClashes(
+                          enumFallbackConfig.globalEnumFallbackName, node)),
+                  fallback: true)
           ],
           builtClassName(node.name.value),
         )
         ..methods = _buildMethods(builtClassName(node.name.value)),
     );
+
+String _ensureNoNameClashes(
+    String globalEnumFallbackName, EnumTypeDefinitionNode node) {
+  String currentFallbackName = globalEnumFallbackName;
+
+  while (node.values
+      .map((e) => e.name.value)
+      .any((element) => currentFallbackName == element)) {
+    //TODO emit warning or throw error when this happens?
+    currentFallbackName = "g$currentFallbackName";
+  }
+
+  return currentFallbackName;
+}
 
 ListBuilder<Constructor> _buildConstructors() => ListBuilder<Constructor>(
       <Constructor>[

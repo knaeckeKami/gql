@@ -53,8 +53,7 @@ Builder schemaBuilder(
   print("got enum map ${enumFallbackMap.runtimeType} $enumFallbackMap");
   return SchemaBuilder(
       typeOverrideMap(options?.config["type_overrides"]),
-      options?.config["global_enum_fallbacks"] as bool,
-      enumFallbackMap(options?.config["enum_fallbacks"])
+      enumFallbackConfig(options?.config)
   );
 }
 

@@ -18,6 +18,7 @@ dependencies:
 dev_dependencies: 
   gql_pedantic: ^1.0.1
   build_runner: ^1.7.4
+  test: any
 
 dependency_overrides:
   gql_exec:
