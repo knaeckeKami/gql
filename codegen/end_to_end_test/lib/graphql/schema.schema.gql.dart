@@ -18,9 +18,6 @@ class GEpisode extends EnumClass {
 
   static const GEpisode JEDI = _$gEpisodeJEDI;
 
-  @BuiltValueEnumConst(wireName: 'gUnknownEnumValue', fallback: true)
-  static const GEpisode gUnknownEnumValue = _$gEpisodegUnknownEnumValue;
-
   static Serializer<GEpisode> get serializer => _$gEpisodeSerializer;
   static BuiltSet<GEpisode> get values => _$gEpisodeValues;
   static GEpisode valueOf(String name) => _$gEpisodeValueOf(name);
@@ -29,7 +26,6 @@ class GEpisode extends EnumClass {
 class GLengthUnit extends EnumClass {
   const GLengthUnit._(String name) : super(name);
 
-  @BuiltValueEnumConst(wireName: 'METER', fallback: true)
   static const GLengthUnit METER = _$gLengthUnitMETER;
 
   static const GLengthUnit FOOT = _$gLengthUnitFOOT;

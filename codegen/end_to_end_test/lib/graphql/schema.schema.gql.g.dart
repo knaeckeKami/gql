@@ -9,8 +9,6 @@ part of 'schema.schema.gql.dart';
 const GEpisode _$gEpisodeNEWHOPE = const GEpisode._('NEWHOPE');
 const GEpisode _$gEpisodeEMPIRE = const GEpisode._('EMPIRE');
 const GEpisode _$gEpisodeJEDI = const GEpisode._('JEDI');
-const GEpisode _$gEpisodegUnknownEnumValue =
-    const GEpisode._('gUnknownEnumValue');
 
 GEpisode _$gEpisodeValueOf(String name) {
   switch (name) {
@@ -20,10 +18,8 @@ GEpisode _$gEpisodeValueOf(String name) {
       return _$gEpisodeEMPIRE;
     case 'JEDI':
       return _$gEpisodeJEDI;
-    case 'gUnknownEnumValue':
-      return _$gEpisodegUnknownEnumValue;
     default:
-      return _$gEpisodegUnknownEnumValue;
+      throw new ArgumentError(name);
   }
 }
 
@@ -32,7 +28,6 @@ final BuiltSet<GEpisode> _$gEpisodeValues =
   _$gEpisodeNEWHOPE,
   _$gEpisodeEMPIRE,
   _$gEpisodeJEDI,
-  _$gEpisodegUnknownEnumValue,
 ]);
 
 const GLengthUnit _$gLengthUnitMETER = const GLengthUnit._('METER');
@@ -45,7 +40,7 @@ GLengthUnit _$gLengthUnitValueOf(String name) {
     case 'FOOT':
       return _$gLengthUnitFOOT;
     default:
-      return _$gLengthUnitMETER;
+      throw new ArgumentError(name);
   }
 }
 
@@ -62,13 +57,6 @@ Serializer<GReviewInput> _$gReviewInputSerializer =
 Serializer<GColorInput> _$gColorInputSerializer = new _$GColorInputSerializer();
 
 class _$GEpisodeSerializer implements PrimitiveSerializer<GEpisode> {
-  static const Map<String, Object> _toWire = const <String, Object>{
-    'gUnknownEnumValue': 'gUnknownEnumValue',
-  };
-  static const Map<Object, String> _fromWire = const <Object, String>{
-    'gUnknownEnumValue': 'gUnknownEnumValue',
-  };
-
   @override
   final Iterable<Type> types = const <Type>[GEpisode];
   @override
@@ -77,22 +65,15 @@ class _$GEpisodeSerializer implements PrimitiveSerializer<GEpisode> {
   @override
   Object serialize(Serializers serializers, GEpisode object,
           {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+      object.name;
 
   @override
   GEpisode deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      GEpisode.valueOf(_fromWire[serialized] ?? serialized as String);
+      GEpisode.valueOf(serialized as String);
 }
 
 class _$GLengthUnitSerializer implements PrimitiveSerializer<GLengthUnit> {
-  static const Map<String, Object> _toWire = const <String, Object>{
-    'METER': 'METER',
-  };
-  static const Map<Object, String> _fromWire = const <Object, String>{
-    'METER': 'METER',
-  };
-
   @override
   final Iterable<Type> types = const <Type>[GLengthUnit];
   @override
@@ -101,12 +82,12 @@ class _$GLengthUnitSerializer implements PrimitiveSerializer<GLengthUnit> {
   @override
   Object serialize(Serializers serializers, GLengthUnit object,
           {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+      object.name;
 
   @override
   GLengthUnit deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      GLengthUnit.valueOf(_fromWire[serialized] ?? serialized as String);
+      GLengthUnit.valueOf(serialized as String);
 }
 
 class _$GReviewInputSerializer implements StructuredSerializer<GReviewInput> {
