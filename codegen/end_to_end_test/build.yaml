@@ -37,7 +37,6 @@ targets:
         enabled: true
         options:
           schema: end_to_end_test|lib/graphql/schema.graphql
-
           type_overrides:
             Date:
               name: DateTime
