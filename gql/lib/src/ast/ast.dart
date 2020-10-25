@@ -1003,6 +1003,7 @@ class EnumValueDefinitionNode extends TypeDefinitionNode {
     this.fallback = false,
   })  : assert(name != null),
         assert(directives != null),
+        assert(fallback != null),
         super(
           span: span,
           name: name,
