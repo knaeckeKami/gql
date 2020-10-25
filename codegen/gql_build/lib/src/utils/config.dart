@@ -61,4 +61,3 @@ Map<String, String> enumFallbackMap(final dynamic enumFallbacks) {
   }
   return {};
 }
-

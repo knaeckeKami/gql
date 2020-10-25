@@ -22,7 +22,6 @@ class SchemaBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-
     final doc = await readDocument(buildStep);
 
     final generatedPartUrl = buildStep.inputId
@@ -31,11 +30,7 @@ class SchemaBuilder implements Builder {
         .path;
 
     final library = buildSchemaLibrary(
-      doc,
-      basename(generatedPartUrl),
-      typeOverrides,
-      enumFallbackConfig
-    );
+        doc, basename(generatedPartUrl), typeOverrides, enumFallbackConfig);
 
     return writeDocument(
       library,

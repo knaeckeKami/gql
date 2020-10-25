@@ -993,7 +993,6 @@ class EnumTypeDefinitionNode extends TypeDefinitionNode {
 }
 
 class EnumValueDefinitionNode extends TypeDefinitionNode {
-
   final bool fallback;
 
   const EnumValueDefinitionNode({

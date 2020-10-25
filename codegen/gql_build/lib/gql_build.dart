@@ -51,10 +51,8 @@ Builder schemaBuilder(
   BuilderOptions options,
 ) {
   print("got enum map ${enumFallbackMap.runtimeType} $enumFallbackMap");
-  return SchemaBuilder(
-      typeOverrideMap(options?.config["type_overrides"]),
-      enumFallbackConfig(options?.config)
-  );
+  return SchemaBuilder(typeOverrideMap(options?.config["type_overrides"]),
+      enumFallbackConfig(options?.config));
 }
 
 /// Builds an aggregate Serlializers object for [built_value]s
